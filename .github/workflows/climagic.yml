@@ -10,24 +10,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: crawl
-        shell: bash
-        run: |
-          curl -s http://www.climagic.org/ | tr -d '\n' | sed 's/.*date[^>]*>\([^<]*\)<.*commanddescription[^>]*>\([^<]*\)<.*<tt>\(.*\)<\/tt>.*/\1\n# \2 (Updated on \1)\n\n\3\n\n/; s/ &amp;/\&/g; s/&quot;/"/g; s/&apos;/\x27/g; s/&lt;/</g; s/&gt;/>/g' > temp
-          
-          name=$(head -1 temp)
-          timestamp=$(date -d "$name" +%s)
-          old_timestamp=$(cat .OLD_TIMESTAMP)
-
-          if ((timestamp > old_timestamp)); then
-            tail -n +2 temp > "$name.sh"
-            echo $timestamp > .OLD_TIMESTAMP
-
-            git config --global user.name A23187
-            git config --global user.email a23187.1979421048@gmail.com
-            git add "$name.sh" .OLD_TIMESTAMP
-            git commit -m "Add '$name.sh'"
-            git push origin master
-          fi
-          rm temp
-          
+        name: checkout codes
+      - name: run climagic.sh
+        env:
+          EMAIL: ${{ secrets.EMAIL }}
+          SCKEY: ${{ secrets.SCKEY }}
+        run: bash climagic.sh
