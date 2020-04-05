@@ -6,7 +6,6 @@ curl -s http://www.climagic.org/ | tr -d '\n' | sed 's/.*date[^>]*>\([^<]*\)<.*c
 name=$(head -1 temp)
 timestamp=$(date -d "$name" +%s)
 old_timestamp=$(cat .OLD_TIMESTAMP)
-name=$(echo $name | tr ' ' '-')
 
 if ((timestamp > old_timestamp)); then
     # save result and update .OLD_TIMESTAMP
@@ -21,9 +20,10 @@ if ((timestamp > old_timestamp)); then
     git push origin master
 
     # post to ServerChan
-    sed '1i text=CLI Magic&desp=\n```' "$name.sh" > temp
-    echo -e "\x60\x60\x60" >> temp
-    curl "https://sc.ftqq.com/$SCKEY.send" --data-binary @temp
+    sed '1i ```
+    $a ```' "$name.sh" > temp
+    echo "*[view in github](https://github.com/$GITHUB_REPOSITORY/blob/master/${name// /%20}.sh)*" >> temp
+    curl "https://sc.ftqq.com/$SCKEY.send?text=CLI%20Magic" --data-urlencode desp@temp
 fi
 
 rm temp
