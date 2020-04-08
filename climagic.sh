@@ -13,7 +13,7 @@ if ((timestamp > old_timestamp)); then
     echo $timestamp > .OLD_TIMESTAMP
 
     # git push
-    git config --global user.name A23187
+    git config --global user.name A-23187
     git config --global user.email $EMAIL
     git add "$name.sh" .OLD_TIMESTAMP
     git commit -m "Add '$name.sh'"
