@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # curl from www.climagic.org
-curl -s http://www.climagic.org/ | tr -d '\n' | sed 's/.*date[^>]*>\([^<]*\)<.*commanddescription[^>]*>\([^<]*\)<.*<tt>\(.*\)<\/tt>.*/\1\n# \2 (Updated on \1)\n\n\3\n\n/; s/ &amp;/\&/g; s/&quot;/"/g; s/&apos;/\x27/g; s/&lt;/</g; s/&gt;/>/g' > temp
+curl -s http://www.climagic.org/ | tr -d '\n' | sed 's/.*date[^>]*>\([^<]*\)<.*commanddescription[^>]*>\([^<]*\)<.*<tt>\(.*\)<\/tt>.*/\1\n# \2 (Updated on \1)\n\n\3\n\n/; s/&amp;/\&/g; s/&quot;/"/g; s/&apos;/\x27/g; s/&lt;/</g; s/&gt;/>/g' > temp
 
 name=$(head -1 temp)
 timestamp=$(date -d "$name" +%s)
