@@ -19,6 +19,9 @@ if ((timestamp > old_timestamp)); then
     git commit -m "Add '$name.sh'"
     git push origin master
 
+    # send email
+    cat "$name.sh" | python3 mail.py
+
     # post to ServerChan
     sed '1i ```
     $a ```' "$name.sh" > temp

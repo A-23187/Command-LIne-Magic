@@ -15,4 +15,6 @@ jobs:
         env:
           EMAIL: ${{ secrets.EMAIL }}
           SCKEY: ${{ secrets.SCKEY }}
+          QQ_EMAIL: ${{ secrets.QQ_EMAIL }}
+          QQ_EMAIL_PWD: ${{ secrets.QQ_EMAIL_PWD }}
         run: bash climagic.sh
