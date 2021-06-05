@@ -26,7 +26,7 @@ if ((timestamp > old_timestamp)); then
     sed '1i ```
     $a ```' "$name.sh" > temp
     echo "*[view in github](https://github.com/$GITHUB_REPOSITORY/blob/master/${name// /%20}.sh)*" >> temp
-    curl "https://sc.ftqq.com/$SCKEY.send?text=CLI%20Magic" --data-urlencode desp@temp
+    curl "https://sctapi.ftqq.com/$SCKEY.send?title=CLI%20Magic" --data-urlencode desp@temp
 fi
 
 rm temp
